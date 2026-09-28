@@ -1,21 +1,25 @@
 ﻿using System;
-using System.Xml.Serialization;
 
 namespace VariablesMethodsConditionals_Sheild_Health_
 {
     internal class Program
     {
-        static int currHealth;
+        //Health
         static int health;
-        static int currShield;
+        static int currHealth;
+        //Shield
         static int shield;
-        static int currLives;
+        static int currShield;
+        //Lives
         static int lives;
+        static int currLives;
         static int livesToDeplete;
 
         static void Main()
         {
+            //set the game colour
             Console.ForegroundColor = ConsoleColor.Gray;
+            //set stats
             health = 100;
             shield = 100;
             lives = 3;
@@ -24,13 +28,34 @@ namespace VariablesMethodsConditionals_Sheild_Health_
             currHealth = health;
             currLives = lives;
 
-            //HUD();
-            //TakeDamage(25); // results: shield = 75; health = 100
             HUD();
-            TakeDamage(75); // results: shield = 25; health = 100
+            TakeDamage(75); 
             HUD();
             TakeDamage(110);
             HUD();
+            TakeDamage(75);
+            HUD();
+            TakeDamage(110);
+            HUD();
+            TakeDamage(75);
+            HUD();
+            TakeDamage(110);
+            HUD();
+            TakeDamage(75);
+            HUD();
+            TakeDamage(110);
+            HUD();
+            TakeDamage(75);
+            HUD();
+            TakeDamage(110);
+            HUD();
+            TakeDamage(75);
+            HUD();
+            TakeDamage(110);
+            HUD();
+            TakeDamage(75);
+            HUD();
+            TakeDamage(110);
         }
 
         static void HUD()
@@ -45,87 +70,117 @@ namespace VariablesMethodsConditionals_Sheild_Health_
 
         static void TakeDamage(int dmg)
         {
-            //add if statment up here
-
             // apply damage to shield
             currShield = currShield - dmg;
-            Console.WriteLine("Shield took damage. -" + dmg + " dmg");
 
-            //if (currShield < 0)
-            //{
-            //    // save spillover
-            //    int spillOver = -currShield;
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Shield took damage. -" + dmg + ""); //i have to leave the "" in there cuz the .exe is angry
+            Console.ForegroundColor = ConsoleColor.Gray;
 
-            //    // cap shield at 0 (don't allow negatives)
-            //    currShield = 0;
+            //if the damage is greater then the currShield
+            //check if shield is 0
+            ShieldCheck();
 
-            //    // handle the spill over...
+            //i had to move this back up to the top because the values wouldn't change
+            //// apply damage to shield
+            //currShield = currShield - dmg;
+            //Console.WriteLine("Shield took damage. -" + dmg + ""); //i have to leave the "" in there cuz the .exe is angry
 
-            //}
-
-
-            // if there is spill over
-            // (if dmg is greater then shield)
-            if (currShield < 0)
-            //if (dmg > currShield) // !!! 
-            {
-                //store the remaining dmg
-                //int remainingDMG;
-
-                //remainingdmg now equals currShield 
-                //remainingDMG = currShield;
-                //it will be in the negative (ex; -10)
-
-                Console.WriteLine("curr health: " + currHealth + " curr Shield: " + currShield);
-
-                //take remaining and remove from health
-                //currHealth = currHealth + currShield; // because currShield is negative and has the minus sign in it
-
-                // calculate remaining damage
-                // (from the overflow of damage to the shield which overflowed into the negatives)
-                int remainingDMG = -currShield;
-                    // explanation: the shield damage when over and into negatives, we save the overage as a positive
-                    // explanation: cover the negative overflow left in shield into a positive amount to save in remaining damage
-                //int remainingDMG = Math.Abs(currShield); // explanation: the shield damage when over and into negatives, we save the overage as a positive
-                
-                // apply remaining damage to health
-                currHealth = currHealth - remainingDMG;
-
-                //how much damage is left?
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(currShield);
-                Console.ForegroundColor = ConsoleColor.Gray;
-
-                //set to 0
-                currShield = 0;
-
-            }
-
-            if (currHealth < 0)
-            {
-                currHealth = 0; //set the health
-
-                currLives = currLives - livesToDeplete; //remove a life
-
-                Console.WriteLine("You lost a life. " + currLives);
-
-                ResetHealthShield(); //restore health and shield
-
-                //if you have no lives left
-                if (currLives <= 0)
-                {
-                    Console.WriteLine("You Died!");
-                    Console.WriteLine("Game Over!");
-
-                }
-            }
-
+            //if health equales 0 
+            //check if health is 0
+            HealthCheck();
         }
 
-        static void ResetHealthShield()
+        static void ResetHealthandShield()
         {
-            currHealth = 100;
-            currShield = 100;
+            //reset health to default
+            currHealth = health;
+            //reset shield to default
+            currShield = shield;
+        }
+
+        static void ShieldCheck()
+        {
+            ////Debugging
+            //Console.ForegroundColor = ConsoleColor.Green;
+            //Console.WriteLine("Debugging: Checking to see if ShieldCheck is being triggered");
+            //Console.ForegroundColor = ConsoleColor.Gray;
+            ////
+
+            //if the damage is greater then the currShield
+            //check if shield is 0
+            if (currShield <= 0)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("Health took damage. " + currShield); //this isnt being triggered??
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+                //if shield is 0
+                //store the remaining damage
+                int remainingDMG = -currShield; // -currShield because the remaining damage -
+                //- was in the negative
+
+                //Remove the remaining damage off of health
+                currHealth = currHealth - remainingDMG;
+
+                //set the shield to 0
+                currShield = 0;
+                //stop the cap LOL
+
+                ////Debugging
+                ////how much damage is left?
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("DebugLine: CurrentShield " + currShield);
+                //Console.ForegroundColor = ConsoleColor.Gray;
+                ////
+            }
+        }
+
+        static void HealthCheck()
+        {
+            ////Debugging
+            //Console.ForegroundColor = ConsoleColor.Green;
+            //Console.WriteLine("Debugging: Checking to see if HealhtCheck is being triggered");
+            //Console.ForegroundColor = ConsoleColor.Gray;
+            ////
+
+            //if health is 0 
+            //check if health is 0
+            if (currHealth <= 0)
+            {
+                //if health is 0
+                //set the health
+                currHealth = 0;
+
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("You lost a life. " + currLives);
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+                //remove a life
+                currLives = currLives - livesToDeplete;
+
+                //restore health and shield
+                ResetHealthandShield();
+
+                //if you have no lives left
+                //check if you have no lives left
+                if (currLives < 0)
+                {
+                    //set the lives to 0
+                    currLives = 0;
+                    currShield = 0;
+                    currHealth = 0;
+
+                    //you died!
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("You Died!");
+                    Console.WriteLine("Game Over!");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    HUD();
+                    Console.Read(); //this is just to stop you from seeing the other attemps that will continue after you hit a button 
+                    //unless you hit the button lol
+                }
+            }
         }
     }
 }
